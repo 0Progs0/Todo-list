@@ -1,0 +1,19 @@
+.btn {
+    font-size: 16px;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    background-color: #0e384e;
+    box-shadow: #41d7f6 ;
+    color: white;
+    border: 5px solid #41d7f6;
+    border-radius: 7px;
+    width: 20%;
+    text-shadow: 2px 2px 30px #41d7f6;
+    -webkit-transition: box-shadow 200ms ease, color 200ms ease;
+    transition: box-shadow 200ms ease, color 300ms ease;
+}
+
+.btn:hover{
+    box-shadow: 0 0 40px 40px #41d7f6 inset;
+}
