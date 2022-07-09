@@ -7,8 +7,8 @@ import ItemsList from "../Items/ItemsList";
 const Form = () => {
     const [inputValue, setInputValue] = useState('')
     const [todos, setTodos] = useState([
-        { id:1, title:'Первый' },
-        { id:2, title:'Второй'}
+        { id:1, title:'Программирование' },
+        { id:2, title:'Рисование'}
     ])
 
     const addNewItem = (e) => {
