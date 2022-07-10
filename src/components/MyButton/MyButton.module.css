@@ -1,10 +1,9 @@
 .btn {
     font-size: 16px;
     text-align: center;
-    margin: 10px;
+    margin: 5px;
     padding: 10px;
     background-color: #0e384e;
-    box-shadow: #41d7f6 ;
     color: white;
     border: 5px solid #41d7f6;
     border-radius: 7px;

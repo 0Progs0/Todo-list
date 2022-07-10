@@ -5,40 +5,61 @@ import styles from "./Form.module.css"
 import ItemsList from "../Items/ItemsList";
 
 const Form = () => {
-    const [inputValue, setInputValue] = useState('')
-    const [todos, setTodos] = useState([
-        { id:1, title:'Программирование' },
-        { id:2, title:'Рисование'}
-    ])
+    const [topicValue, setTopicValue] = useState('')
+    const [todoValue, setTodoValue] = useState('')
+    const [items, setItems] = useState(
+        [
+            {
+                topic: 'Понедельник',
+                todos: [
+                    {id: 1, title: 'Программирование'},
+                    {id: 2, title: 'Рисование'}]
+            },
+            {
+                topic: 'Вторник',
+                todos: [
+                    {id: 1, title: 'Программирование'},
+                    {id: 2, title: 'Рисование'}]
+            }
+        ])
 
     const addNewItem = (e) => {
         e.preventDefault()
         const newTodo = {
-            id: Date.now(),
-            title:inputValue
+            topic:topicValue,
+            todos: [
+                {id:Date.now(),title:todoValue}
+            ]
         }
-        setTodos([...todos, newTodo])
-        setInputValue('')
+        setItems([...items, newTodo])
+        setTopicValue('')
+        setTodoValue('')
     }
 
-    const removeItem = (item) => {
-        setTodos(todos.filter(t => t.title != item.title))
+    const removeItem = (todo) => {
+        console.log(items.map(item => item.todos.filter(t => t.id !== todo.id)))
     }
 
     return (
         <div>
             <div className={styles.main}>
-            <MyInput
-                value = {inputValue}
-                onChange = {e => setInputValue(e.target.value)}
-                type = "text"
-                placeholder = "Введите название"
-            />
-            <MyButton disabled = {!inputValue}
-            onClick = {addNewItem}>Добавить в список</MyButton>
+                <MyInput
+                    value={topicValue}
+                    onChange={e => setTopicValue(e.target.value)}
+                    type="text"
+                    placeholder="Введите тему"
+                />
+                <MyInput
+                    value={todoValue}
+                    onChange={e => setTodoValue(e.target.value)}
+                    type="text"
+                    placeholder="Введите название"
+                />
+                <MyButton disabled={todoValue == '' && topicValue == ''}
+                          onClick={addNewItem}>Добавить в список</MyButton>
             </div>
             <div className={styles.main}>
-                <ItemsList remove={removeItem} list={todos}/>
+                <ItemsList remove={removeItem} list={items}/>
             </div>
         </div>
     );
