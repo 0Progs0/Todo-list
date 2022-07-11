@@ -3,45 +3,47 @@ import MyInput from "../MyInput/MyInput";
 import MyButton from "../MyButton/MyButton";
 import styles from "./Form.module.css"
 import ItemsList from "../Items/ItemsList";
+import Sidenav from "../Sidenav/Sidenav";
+import items from "../../Data/data";
+
+const allThemes = ['All', ...new Set(items.map(todo => todo.topic))]
 
 const Form = () => {
     const [topicValue, setTopicValue] = useState('')
     const [todoValue, setTodoValue] = useState('')
-    const [items, setItems] = useState(
-        [
-            {
-                topic: 'Понедельник',
-                todos: [
-                    {id: 1, title: 'Программирование'},
-                    {id: 2, title: 'Рисование'}]
-            },
-            {
-                topic: 'Вторник',
-                todos: [
-                    {id: 1, title: 'Программирование'},
-                    {id: 2, title: 'Рисование'}]
-            }
-        ])
+    const [todosItems, setTodosItems] = useState(items)
+
+    const [themes, setThemes] = useState(allThemes)
 
     const addNewItem = (e) => {
         e.preventDefault()
         const newTodo = {
+            id:Date.now(),
             topic:topicValue,
-            todos: [
-                {id:Date.now(),title:todoValue}
-            ]
+            todo:todoValue
         }
-        setItems([...items, newTodo])
+        setTodosItems([...todosItems, newTodo])
+        setThemes([...themes, newTodo.topic])
         setTopicValue('')
         setTodoValue('')
     }
 
     const removeItem = (todo) => {
-        console.log(items.map(item => item.todos.filter(t => t.id !== todo.id)))
+        setTodosItems(todosItems.filter(t => t.id !==todo.id))
+    }
+
+    const filterThemes = (theme) => {
+        if (theme == 'All'){
+            setTodosItems(items)
+            return
+        }
+        const filteredTodos = items.filter((todo) => todo.topic === theme)
+        setTodosItems(filteredTodos)
     }
 
     return (
         <div>
+            <Sidenav themes={themes} filter={filterThemes}/>
             <div className={styles.main}>
                 <MyInput
                     value={topicValue}
@@ -59,7 +61,7 @@ const Form = () => {
                           onClick={addNewItem}>Добавить в список</MyButton>
             </div>
             <div className={styles.main}>
-                <ItemsList remove={removeItem} list={items}/>
+                <ItemsList remove={removeItem} list={todosItems}/>
             </div>
         </div>
     );
