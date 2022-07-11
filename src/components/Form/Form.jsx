@@ -24,6 +24,8 @@ const Form = () => {
         }
         setTodosItems([...todosItems, newTodo])
         setThemes([...themes, newTodo.topic])
+        items.push(newTodo)
+        console.log(items)
         setTopicValue('')
         setTodoValue('')
     }
